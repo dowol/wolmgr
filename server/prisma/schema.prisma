@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum PreferenceValueType {
+  boolean
+  int
+  number
+  string
+  datetime
+  object
+  array
+  binary
+}
+
+enum ConnectionProtocol {
+  rdp
+  vnc
+  ssh
+}
+
+model Device {
+  mac  Bytes
+  name String
+  port Int @default(7) // 7 or 9
+  @@id(mac)
+  connections Connection[]
+}
+
+model Connection {
+  mac              Bytes
+  protocol ConnectionProtocol @default(rdp)
+  host             String
+  port             Int        @default(3389)
+  config           Json       @default("{}")
+  workingDirectory String?
+  @@id([mac, protocol])
+  device Device @relation(fields: mac, references: mac, onUpdate: Cascade, onDelete: Cascade)
+}
+
+model Account {
+  username String
+  password Bytes
+  @@id(username)
+  credentials Credentials[]
+}
+
+model Credentials {
+  user         String
+  remote       String
+  accessToken  String  @unique
+  refreshToken String  @unique
+  issue        DateTime
+  expires      DateTime
+  @@id([user, remote])
+  account Account @relation(fields: user, references: username, onUpdate: Cascade, onDelete: Cascade)
+}
+
+model Preference {
+  key   String
+  type  PreferenceValueType @default(string)
+  value String?
+  @@id(key)
+}
