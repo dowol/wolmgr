@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WolManager.Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="WOL Manager Client" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
+        <Menu Padding="5 1" >
+            <MenuItem Header="_WOL Manager">
+                <MenuItem Header="_About the Program" />
+                <MenuItem Header="_Settings" />
+            </MenuItem>
+            <MenuItem Header="_Provider">
+                <MenuItem Header="Provider _Manager" />
+                <Separator/>
+                <MenuItem Header="Register new Provider" />
+                
+            </MenuItem>
+            <MenuItem Header="_Device">
+                
+            </MenuItem>
+            
+        </Menu>
     </Grid>
 </Window>
