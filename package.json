@@ -1,0 +1,7 @@
+{
+  "name": "wolmgr",
+  "version": "1.0.0",
+  "description": "WOL Management Solution",
+  "private": true,
+  "workspaces": ["server", "client"]
+}
